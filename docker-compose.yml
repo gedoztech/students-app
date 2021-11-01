@@ -1,0 +1,56 @@
+version: '3.9'
+
+networks:
+  students:
+
+services:
+
+  students-db:
+    image: postgres:14.0-alpine
+    container_name: students-db
+    networks:
+      - students
+    ports:
+      - '${DB_HOST_PORT}:5432'
+    volumes:
+      - "./db/data:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+
+  students-api:
+    build:
+      context: './api'
+      dockerfile: ./.docker/Dockerfile-dev
+    image: "students-api:dev"
+    container_name: students-api
+    networks:
+      - students
+    ports:
+      - '${API_HOST_PORT}:${API_DOCKER_PORT}'
+    volumes:
+      - ./api:/home/node/api
+    depends_on:
+      - students-db
+    environment:
+      - API_DOCKER_PORT=${API_DOCKER_PORT}
+      - NODE_ENV=development
+
+  students-ui:
+    build:
+      context: "./ui"
+      dockerfile: ./.docker/Dockerfile-dev
+    image: "students-ui:dev"
+    container_name: students-ui
+    networks:
+      - students
+    ports:
+      - '${UI_HOST_PORT}:${UI_DOCKER_PORT}'
+    volumes:
+      - ./ui:/home/node/ui
+    depends_on:
+      - students-api
+    environment:
+      - UI_DOCKER_PORT=${UI_DOCKER_PORT}
+      - NODE_ENV=development

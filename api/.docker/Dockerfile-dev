@@ -1,0 +1,3 @@
+FROM node:alpine3.14
+WORKDIR /home/node/api
+CMD ["node", "./src/index.mjs"]
