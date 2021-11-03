@@ -1,0 +1,19 @@
+{
+  "name": "students-api",
+  "version": "1.0.0",
+  "description": "GraphQL API for students management",
+  "main": "./src/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnny00joe/students-app.git"
+  },
+  "author": "Johnny Joe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnny00joe/students-app/issues"
+  },
+  "homepage": "https://github.com/johnny00joe/students-app#readme"
+}
