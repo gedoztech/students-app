@@ -1,2 +1,5 @@
 .env
+.env.migration
 db/data
+node_modules
+dist

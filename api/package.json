@@ -1,0 +1,50 @@
+{
+  "name": "students-api",
+  "version": "1.0.0",
+  "description": "GraphQL API for students management",
+  "main": "./src/index.ts",
+  "type": "module",
+  "exports": "./dist/index.js",
+  "scripts": {
+    "lint-check": "eslint --ext .ts,.tsx,.js,.jsx,.mjs ./src/",
+    "lint-fix": "eslint --fix --ext .ts,.tsx,.js,.jsx,.mjs ./src/",
+    "prepare-husky": "cd .. && husky install api/.husky",
+    "db-migration": "node -r dotenv/config ./dist/database/db-migration.js dotenv_config_path=./../.env.migration",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "nodemon -L --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' ./src/index.ts",
+    "build": "tsc -p .",
+    "start": "NODE_PATH=./dist node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnny00joe/students-app.git"
+  },
+  "author": "Johnny Joe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnny00joe/students-app/issues"
+  },
+  "homepage": "https://github.com/johnny00joe/students-app#readme",
+  "devDependencies": {
+    "@types/filesystem": "0.0.32",
+    "@types/node": "^16.11.6",
+    "@types/pg": "^8.6.1",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "dotenv": "^10.0.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "husky": "^7.0.4",
+    "nodemon": "^2.0.14",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "apollo-server": "^3.4.1",
+    "graphql": "^16.0.1",
+    "pg": "^8.7.1"
+  }
+}
