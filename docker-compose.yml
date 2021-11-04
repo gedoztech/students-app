@@ -11,7 +11,7 @@ services:
     networks:
       - students
     ports:
-      - '${DB_HOST_PORT}:5432'
+      - '${DB_HOST_PORT}:${DB_DOCKER_PORT}'
     volumes:
       - "./db/data:/var/lib/postgresql/data"
     environment:
@@ -36,6 +36,11 @@ services:
     environment:
       - API_DOCKER_PORT=${API_DOCKER_PORT}
       - NODE_ENV=development
+      - DB_HOST=${DB_HOST}
+      - DB_DOCKER_PORT=${DB_DOCKER_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
 
   students-ui:
     build:
