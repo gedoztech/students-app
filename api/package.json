@@ -11,7 +11,7 @@
     "prepare-husky": "cd .. && husky install api/.husky",
     "db-migration": "node -r dotenv/config ./dist/database/db-migration.js dotenv_config_path=./../.env.migration",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:server": "nodemon -L --watch './src/index.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' ./src/index.ts",
+    "dev:server": "nodemon -L --watch './**/*.ts' --exec 'node --experimental-specifier-resolution=node --loader ts-node/esm' ./src/index.ts",
     "build": "tsc -p .",
     "start": "NODE_PATH=./dist node dist/index.js"
   },
