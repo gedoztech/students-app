@@ -1,5 +1,5 @@
-import { getClient } from './db-connection.js'
-import { listFiles, getFileContents } from '../fs-utils.js'
+import { getClient } from './db-connection'
+import { listFiles, getFileContents } from '../fs-utils'
 
 const migrationsPath = process.cwd() + '/../db/migrations'
 
