@@ -1,14 +1,39 @@
-import { createServer } from 'http'
+import { ApolloServer, gql } from 'apollo-server'
+import { getClient } from './database/db-connection'
 
 const PORT: number | undefined = parseInt(<string>process.env.API_DOCKER_PORT, 10)
 const HOSTNAME: string = 'students-api'
 
-const server = createServer((req, res) => {
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end('Hello World! I am the students api service.')
-})
+async function getStudents () {
+  const client = await getClient()
+  try {
+    const result = await client.query('SELECT * FROM public.students LIMIT 50')
+    return result.rows
+  } catch {
+    console.warn('No data found.')
+  } finally {
+    client.release()
+  }
+}
 
-server.listen(PORT, HOSTNAME, () => {
-  console.log(`Students API server running on port ${PORT}`)
+const typeDefs = gql`
+  type Student {
+    name: String!,
+    cpf: String!,
+    email: String!
+  }
+  type Query {
+    students: [Student]
+  }
+`
+const resolvers = {
+  Query: {
+    students: () => getStudents()
+  }
+}
+
+const server = new ApolloServer({ typeDefs, resolvers })
+
+server.listen({ port: PORT, host: HOSTNAME }).then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`)
 })
